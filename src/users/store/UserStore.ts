@@ -17,7 +17,11 @@ export class UserStore {
   }
 
    async loadNextPage () : Promise<User[]> {
-    return await this.userServices.getUsers( this.state.currentPage + 1)
+    const users = await this.userServices.getUsers( this.state.currentPage + 1 )
+    this.state.users = [...users];
+
+    return users;
+
   }
   
    loadPreviousPage () {
@@ -32,8 +36,8 @@ export class UserStore {
     throw new Error("not impelement")
   }
   
-   getUser () {
-  
+   getUsers () {
+    return this.state.users;
   }
   
   // TODO: implementar

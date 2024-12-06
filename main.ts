@@ -2,7 +2,6 @@ import { UsersApp } from './src/users.app';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="card">
-    <div> que onda que pex</div>
   </div>
 
 `

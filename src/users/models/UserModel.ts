@@ -5,10 +5,10 @@ export class UserModel {
   public id : number;
   public avatar : string;
   public balance : number;
-  public first_name : string;
+  public firstName : string;
   public gender : string;
   public isActive : boolean;
-  public last_name : string;
+  public lastName : string;
 
   constructor({
     id,
@@ -22,10 +22,10 @@ export class UserModel {
     this.id         =  id
     this.avatar     =  avatar
     this.balance    =  balance
-    this.first_name =  firstName
+    this.firstName =  firstName
     this.gender     =  gender
     this.isActive   =  isActive
-    this.last_name  =  lastName
+    this.lastName  =  lastName
     
   }
 
