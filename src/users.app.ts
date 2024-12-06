@@ -1,5 +1,5 @@
 import { UserRepository } from "./users/connections/UserRepository";
-import { UserStore } from "./users/store/users-store";
+import { UserStore } from "./users/store/UserStore";
 import { UserServices } from "./users/use-cases";
 
 
