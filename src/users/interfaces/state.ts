@@ -1,5 +1,5 @@
-import { User } from './user';
+import { UserModel } from '../models/UserModel';
 export interface State {
   currentPage : number,
-  users : User[]
+  users : UserModel[]
 }
