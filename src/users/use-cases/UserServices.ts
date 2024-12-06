@@ -11,7 +11,6 @@ export class UserServices {
 
   async getUsers( page : number = 1 ){
     const users = await this.HttpUsers.getUsersByPage( page );
-    console.log(users)
     return users;
   }
 }

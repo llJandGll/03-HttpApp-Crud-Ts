@@ -1,4 +1,5 @@
 import { UserRepository } from "./users/connections/UserRepository";
+import { UserStore } from "./users/store/users-store";
 import { UserServices } from "./users/use-cases";
 
 
@@ -9,11 +10,11 @@ export const UsersApp =  async ( element : HTMLDivElement) => {
     element.innerHTML = `Loading...`;
     const userRepository = new UserRepository();
     const userService = new UserServices( userRepository );
-    const users = userService.getUsers();
-    console.log(users)
+    const userStore = new UserStore( userService );
+    console.log( await userStore.loadNextPage())
   }catch( error : any ){
     console.log(error)
-    element.innerHTML =  `Error ${ error.message }`;
+    element.innerHTML =  `Error en users.app.ts ${ error.message }`;
 
   }
 }
