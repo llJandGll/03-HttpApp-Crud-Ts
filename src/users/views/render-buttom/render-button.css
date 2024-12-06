@@ -1,0 +1,10 @@
+
+button {
+  margin: 10px;
+  border-radius: 5px;
+}
+
+#current-page {
+  font-size: 1.3rem;
+  color: white;
+}

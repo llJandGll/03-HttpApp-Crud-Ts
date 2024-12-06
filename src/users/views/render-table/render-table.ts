@@ -1,7 +1,4 @@
-import { UserStore } from '../../store/UserStore';
-import { UserServices } from '../../use-cases';
 import './render-table.css';
-import { UserRepository } from '../../connections/UserRepository';
 import { UserModel } from '../../models/UserModel';
 
 
@@ -35,12 +32,11 @@ export const RenderTable = ( element : HTMLDivElement, users : UserModel[] ) : v
     table = createTable();
     element.append( table );
   }
-  let tableBodyHtml : string;
-
+  let tableBodyHtml : string = "";
   users.map( user => {
     tableBodyHtml += `
     <tr>
-      <td> ${user.id }</td>
+      <td> ${ user.id }</td>
       <td> ${user.balance } </td>
       <td> ${user.firstName } </td>
       <td> ${user.lastName } </td>

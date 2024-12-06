@@ -1,6 +1,7 @@
 import { UserRepository } from "./users/connections/UserRepository";
 import { UserStore } from "./users/store/UserStore";
 import { UserServices } from "./users/use-cases";
+import { RenderButtons } from "./users/views/render-buttom/render-buttom";
 import { RenderTable } from "./users/views/render-table/render-table";
 
 
@@ -16,6 +17,7 @@ export const UsersApp =  async ( element : HTMLDivElement) => {
     element.innerHTML = "";
 
     RenderTable( element, users  );
+    RenderButtons( element, userStore );
   }catch( error : any ){
     console.log(error)
     element.innerHTML =  `Error en users.app.ts ${ error.message }`;

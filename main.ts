@@ -1,5 +1,5 @@
 import { UsersApp } from './src/users.app';
-
+import './style.css';
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="card">
   </div>
