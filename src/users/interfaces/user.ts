@@ -3,7 +3,7 @@ export interface User {
   isActive : boolean;
   balance : number;
   avatar : string;
-  first_name : string;
-  last_name : string;
+  firstName : string;
+  lastName : string;
   gender : string;
 }

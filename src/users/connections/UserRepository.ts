@@ -2,6 +2,7 @@ import axios from 'axios';
 import { UserProvider } from './UserProvider';
 import { PaginatedResponse } from '../interfaces/pagination';
 import { UserModel } from '../models/UserModel';
+import { localhostUserModel } from '../mappers/localhostUser.mapper';
 export class UserRepository implements UserProvider {
 
   constructor() {
@@ -11,8 +12,8 @@ export class UserRepository implements UserProvider {
   async getUsersByPage(page: number): Promise<UserModel[]> {
     const url = `${import.meta.env.VITE_BASE_URL}/users?_page=${ page }`;
     const { data } = await axios.get<PaginatedResponse<UserModel>>( url );
-    const { data : users } = data;
-    return users;
+    const users = data.data;
+    return users.map( localhostUserModel );
   }
 
 
