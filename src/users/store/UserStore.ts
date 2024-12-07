@@ -1,5 +1,4 @@
 import { State } from "../interfaces/state"
-import { User } from "../interfaces/user";
 import { UserModel } from "../models/UserModel";
 import { UserServices } from '../use-cases/UserServices';
 
