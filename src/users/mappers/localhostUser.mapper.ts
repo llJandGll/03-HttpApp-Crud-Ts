@@ -1,25 +1,24 @@
-import { User } from '../interfaces/user';
 import { UserModel } from "../models/UserModel"
 
 
 export const localhostUserModel = ( localhostUser : any) : UserModel   => {
 
   const { 
+    id,
     avatar,
     balance,
     first_name,
     gender,
-    id,
     isActive,
     last_name, 
   } = localhostUser;
 
   return new UserModel({
+    id,
     avatar,
     balance,
     firstName : first_name,
     gender,
-    id,
     isActive,
     lastName : last_name, 
   })

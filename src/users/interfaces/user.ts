@@ -1,5 +1,5 @@
 export interface User {
-  id : string;
+  id? : string;
   isActive : boolean;
   balance : number;
   avatar : string;

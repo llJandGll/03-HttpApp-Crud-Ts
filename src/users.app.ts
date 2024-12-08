@@ -1,4 +1,5 @@
 import { UserRepository } from "./users/connections/UserRepository";
+import { UserModel } from "./users/models/UserModel";
 import { UserStore } from "./users/store/UserStore";
 import { UserServices } from "./users/use-cases";
 import { ButtonModal } from "./users/views/add-button-modal/add-button-modal";
@@ -21,7 +22,7 @@ export const UsersApp =  async ( element : HTMLDivElement) => {
     RenderTable( element, users  );
     RenderButtons( element, userStore );
     ButtonModal( element );
-    RenderModal(element);
+    RenderModal( element );
   }catch( error : any ){
     console.log(error)
     element.innerHTML =  `Error en users.app.ts ${ error.message }`;

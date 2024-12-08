@@ -14,4 +14,10 @@ export class UserServices {
     const users = await this.HttpUsers.getUsersByPage( page );
     return users;
   }
-}
+
+  async saveUser ( user : UserModel ) {
+    const userPost = await this.HttpUsers.saveUser( user );
+    console.log("user services",userPost)
+    return userPost
+  }
+} 

@@ -1,4 +1,3 @@
-
 {
   "users": [
     {
@@ -450,6 +449,15 @@
       "first_name": "Mcbride",
       "last_name": "Woodward",
       "gender": "male"
+    },
+    {
+      "id": "f3d6",
+      "avatar": "place",
+      "balance": 1500,
+      "first_name": "jesus",
+      "gender": "hombre",
+      "isActive": true,
+      "last_name": "zeballos"
     }
   ]
 }
