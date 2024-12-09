@@ -25,4 +25,12 @@ export class UserServices {
     const user = await this.HttpUsers.getUserById( id );
     return user;
   }
+
+  async deleteUserById ( id : string | number ) {
+    const user = await this.HttpUsers.getUserById( id );
+    console.log('delte service', user)
+    return user;
+  }
+
+
 } 

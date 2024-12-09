@@ -41,10 +41,10 @@ export const RenderModal = (element: HTMLDivElement ) => {
     const userRepository = new UserRepository()
     const userServices = new UserServices( userRepository );
     const userStore = new UserStore( userServices );
-    const postUsers = await userServices.saveUser( user );
+    await userServices.saveUser( user );
     hideModal( form )
     userStore.onUserChanged( user );
-    const users = userStore.relaodPage();
+    const users = userStore.getUsers();
     RenderTable( element , users );
   })
 

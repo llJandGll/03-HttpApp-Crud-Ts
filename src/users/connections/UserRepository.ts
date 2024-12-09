@@ -71,4 +71,21 @@ export class UserRepository implements UserProvider {
     return users;
 
   }
+
+  async deleteUserById ( id : number | string ) {
+
+    const url = `${ import.meta.env.VITE_BASE_URL }/users/${ id }`;
+    const deleteUser = await axios({
+      headers : {
+        "content-type" : "application/json; charset=UTF-8",
+      },
+      method : "DELETE",
+      url : url,
+
+    })
+    console.log('delete repository',deleteUser)
+
+    return true;
+
+}
 }

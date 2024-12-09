@@ -39,8 +39,14 @@ export class UserStore {
     return this.state.currentPage;
   }
   
-   relaodPage () {
-    return this.state.users;
+   async relaodPage () {
+    const users = await this.userServices.getUsers( this.state.currentPage );
+    if ( users.length === 0 ) {
+        await this.loadPreviousPage();
+        return;
+    } 
+    
+    this.state.users = users;
   }
   
    getUsers () {
