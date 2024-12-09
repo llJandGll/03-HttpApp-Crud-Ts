@@ -28,7 +28,6 @@ export class UserRepository implements UserProvider {
 
     const createdUser = await this.createUser( user )
     
-    console.log('user repository',createdUser);
     return createdUser;
   }
 

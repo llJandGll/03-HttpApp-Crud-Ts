@@ -54,25 +54,24 @@ export class UserStore {
   }
   
 
-  onUserChanged ( updatedUser : UserModel ) {
+  async onUserChanged ( updatedUser : UserModel ) {
+    const users = await this.relaodPage();
 
-    let wasFound : boolean = false;
-    this.state.users = this.state.users.map( user  => {
-      console.log('map',user)
+
+    // let wasFound : boolean = false;
+    this.state.users = users!.map( user  => {
       if( user.id === updatedUser.id){
-        wasFound = true;
+        // wasFound = true;
         return updatedUser;
       }
-
       return user;
     })
 
-    console.log('on user changed',this.state.users)
-
-    if( this.state.users.length < 10 && !wasFound){
-      this.state.users.push( updatedUser );
-    }
-
+    
+    // if( this.state.users.length < 10 && !wasFound){
+    //   this.state.users.push( updatedUser );
+    // }
+    
     return this.state.users;
   }
   

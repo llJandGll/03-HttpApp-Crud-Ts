@@ -5,7 +5,7 @@ import { UserModel } from "../models/UserModel";
 export class UserServices {
   private HttpUsers : UserRepository
   constructor( 
-    private http : UserRepository,
+    public http : UserRepository,
    ) {
     this.HttpUsers = http;
   }
@@ -17,7 +17,6 @@ export class UserServices {
 
   async saveUser ( user : UserModel ) {
     const userPost = await this.HttpUsers.saveUser( user );
-    // console.log("user services",userPost)
     return userPost
   }
 

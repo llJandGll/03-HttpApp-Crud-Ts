@@ -35,12 +35,13 @@ export const RenderModal = (element: HTMLDivElement, userServices : UserServices
   form = modalInstance?.querySelector("form")!;
   
   form?.addEventListener("submit", async ( e ) => {
+
     e.preventDefault();
     const user = formData( form );
     await userServices.saveUser( user );
     hideModal( form )
-    userStore.onUserChanged( user );
-    const users = userStore.getUsers();
+
+    const users = await userStore.onUserChanged( user );
     RenderTable( element , users, userServices );
   })
 
@@ -48,25 +49,28 @@ export const RenderModal = (element: HTMLDivElement, userServices : UserServices
 
 const formData = ( form : HTMLFormElement ) : User => {
   const formData = new FormData( form );
+  if( !formData.get("isActive")) {
+    formData.append("isActive", "off");
+  }
   const user: Partial<User> = {...loaderUser};
-
   for (const [key, value] of formData) {
-
-
+    
+    
     if (key === 'balance') {
       user[key as 'balance'] = +value || 0;
       continue;
     }
-  
+    
     if (key === 'isActive') {
       (value === 'on') ? 
         user[key] = true : 
         user[key] = false;
       continue;
     }
-  
+    
     user[key as keyof User] = value.toString() as any;
   }
+
 
   if (
     user.avatar!.length <= 0 ||

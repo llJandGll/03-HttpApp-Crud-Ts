@@ -1,8 +1,6 @@
 import './render-table.css';
 import { UserModel } from '../../models/UserModel';
 import { showModal } from '../render-modal/render-modal';
-import { UserRepository } from '../../connections/UserRepository';
-import { UserStore } from '../../store/UserStore';
 import { UserServices } from '../../use-cases/UserServices';
 
 
