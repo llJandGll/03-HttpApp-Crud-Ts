@@ -66,7 +66,6 @@ export class UserRepository implements UserProvider {
   async getUserById ( id : string | number  ) {
     const url = `${import.meta.env.VITE_BASE_URL}/users/${id}`;
     const { data } = await axios.get<UserModel>( url );
-    console.log(data)
     const users = localhostUserModel( data );
     return users;
 

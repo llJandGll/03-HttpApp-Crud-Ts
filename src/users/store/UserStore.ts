@@ -58,6 +58,7 @@ export class UserStore {
 
     let wasFound : boolean = false;
     this.state.users = this.state.users.map( user  => {
+      console.log('map',user)
       if( user.id === updatedUser.id){
         wasFound = true;
         return updatedUser;
@@ -65,6 +66,8 @@ export class UserStore {
 
       return user;
     })
+
+    console.log('on user changed',this.state.users)
 
     if( this.state.users.length < 10 && !wasFound){
       this.state.users.push( updatedUser );

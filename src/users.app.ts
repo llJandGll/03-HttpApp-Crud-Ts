@@ -18,10 +18,10 @@ export const UsersApp =  async ( element : HTMLDivElement) => {
     const users = await userStore.loadNextPage()
     element.innerHTML = "";
 
-    RenderTable( element, users  );
+    RenderTable( element, users , userService  );
     RenderButtons( element, userStore );
-    ButtonModal( element );
-    RenderModal(element );
+    ButtonModal( element, userService );
+    RenderModal(element, userService, userStore );
   }catch( error : any ){
     console.log(error)
     element.innerHTML =  `Error en users.app.ts ${ error.message }`;

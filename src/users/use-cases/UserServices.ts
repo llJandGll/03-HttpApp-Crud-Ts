@@ -17,7 +17,7 @@ export class UserServices {
 
   async saveUser ( user : UserModel ) {
     const userPost = await this.HttpUsers.saveUser( user );
-    console.log("user services",userPost)
+    // console.log("user services",userPost)
     return userPost
   }
 

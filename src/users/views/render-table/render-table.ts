@@ -1,9 +1,9 @@
 import './render-table.css';
 import { UserModel } from '../../models/UserModel';
 import { showModal } from '../render-modal/render-modal';
-import { UserServices } from '../../use-cases';
 import { UserRepository } from '../../connections/UserRepository';
 import { UserStore } from '../../store/UserStore';
+import { UserServices } from '../../use-cases/UserServices';
 
 
 let table : HTMLTableElement;
@@ -29,16 +29,18 @@ const createTable = () => {
 }
 
 
-export const RenderTable = ( element : HTMLDivElement, users : UserModel[] ) : void  => {
+export const RenderTable = ( element : HTMLDivElement, users : UserModel[] , userServices : UserServices ) : void  => {
 
 
   if (!table) {
     table = createTable();
     element.append( table );
 
-    table.addEventListener("click", userSelectListener )
+    table.addEventListener("click", ( event ) => {
+      userSelectListener( event , userServices);
+    }  )
     table.addEventListener("click", (e) => {
-      tableDeleteListener(e, element)
+      // tableDeleteListener(e, element)
     })
   }
   let tableBodyHtml : string = "";
@@ -62,34 +64,34 @@ export const RenderTable = ( element : HTMLDivElement, users : UserModel[] ) : v
   
 }
 
-const tableDeleteListener = async(event : Event , elementto) => {
-  const element = event.target as HTMLElement
-  if ( !element.closest('.delete-user') ) return;
+// const tableDeleteListener = async(event : Event , element : HTMLDivElement) => {
+//   const data = event.target as HTMLElement
+//   if ( !data.closest('.delete-user') ) return;
 
-  const id = element.getAttribute('data-id');
-  console.log(id)
-  try {
-      const userRepository = new UserRepository()
-      const userServices = new UserServices( userRepository )
-      const userStore = new UserStore( userServices )
-      await userServices.deleteUserById(id?.toString()); 
-      await userStore.relaodPage();
-      const users = userStore.state.users;
-      document.querySelector('#current-page').innerText = userStore.relaodPage();
-      RenderTable( elementto , users);
+//   const id = data.getAttribute('data-id')!.toString();
+//   console.log(id)
+//   try {
+//       const userRepository = new UserRepository()
+//       const userServices = new UserServices( userRepository )
+//       const userStore = new UserStore( userServices )
+//       await userServices.deleteUserById( id ); 
+//       await userStore.relaodPage();
+//       const users = userStore.state.users;
+//       document.querySelector<any>('#current-page').innerText = userStore.relaodPage();
+//       RenderTable( element  , users);
       
-  } catch (error) {
-      console.log(error);
-      alert('No se pudo eliminar');
-  }
+//   } catch (error) {
+//       console.log(error);
+//       alert('No se pudo eliminar');
+//   }
 
-}
+// }
 
 
-const userSelectListener = ( event : Event ) => {
+const userSelectListener = ( event : Event , userServices : UserServices ) => {
   const element = event.target as HTMLElement
   if ( !element.closest('.select-user') ) return;
   const id = element.getAttribute("data-id")!;
 
-  showModal( id )
+  showModal( userServices , id )
 };

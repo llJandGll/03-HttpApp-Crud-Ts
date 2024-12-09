@@ -3,7 +3,6 @@ import modalHtml from './render-modal.html?raw';
 import './render-modal.css';
 import { User } from '../../interfaces/user';
 import { UserServices } from '../../use-cases';
-import { UserRepository } from '../../connections/UserRepository';
 import { RenderTable } from '../render-table/render-table';
 import { UserStore } from '../../store/UserStore';
 import { UserModel } from '../../models/UserModel';
@@ -14,7 +13,7 @@ let loaderUser : object = {};
 
 
 
-export const RenderModal = (element: HTMLDivElement ) => {
+export const RenderModal = (element: HTMLDivElement, userServices : UserServices, userStore : UserStore ) => {
 
   if (modalInstance) {
     return modalInstance;
@@ -38,14 +37,11 @@ export const RenderModal = (element: HTMLDivElement ) => {
   form?.addEventListener("submit", async ( e ) => {
     e.preventDefault();
     const user = formData( form );
-    const userRepository = new UserRepository()
-    const userServices = new UserServices( userRepository );
-    const userStore = new UserStore( userServices );
     await userServices.saveUser( user );
     hideModal( form )
     userStore.onUserChanged( user );
     const users = userStore.getUsers();
-    RenderTable( element , users );
+    RenderTable( element , users, userServices );
   })
 
 }
@@ -88,16 +84,12 @@ const formData = ( form : HTMLFormElement ) : User => {
 }
 
 
-export const showModal = async ( id? : string | number) => {
+export const showModal = async (userServices : UserServices ,  id? : string | number) => {
   loaderUser = {};
   modalInstance?.classList.remove('hide-modal');
   if ( !id) return;
-
-  const userRepository = new UserRepository()
-  const userServices = new UserServices( userRepository );
-  const user = await userServices.getUserById( id )
+  const user = await userServices.getUserById( id );
   setFormValues( user );
-  console.log("showModal",user)
 }
 
 
