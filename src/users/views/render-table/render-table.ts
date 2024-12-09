@@ -53,7 +53,7 @@ export const RenderTable = ( element : HTMLDivElement, users : UserModel[] , use
       <td> ${user.isActive} </td>
       <td> ${user.gender} </td>
       <td>
-        <a href= "#/" class="select-user" data-id='${ user.id }' > Select </a>
+        <a href= "#/" class="select-user" data-id='${ user.id }' > Update </a>
         <a href= "#/" class="delete-user" data-id='${ user.id }' > Delete </a>
       </td>
     </tr>
@@ -70,8 +70,7 @@ const tableDeleteListener = async(event : Event , element : HTMLDivElement , use
   const id = data.getAttribute('data-id')!.toString();
   try {
       await userServices.deleteUserById( id ); 
-      const resp = await userStore!.relaodPage();
-      console.log({resp})
+      await userStore!.relaodPage();
       const users = await userStore!.getUsers();
       document.querySelector<any>('#current-page').innerText = userStore!.getCurrentPage();
       RenderTable( element  , users , userServices);

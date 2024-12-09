@@ -41,7 +41,6 @@ export class UserStore {
   
    async relaodPage () {
     const users = await this.userServices.getUsers( this.state.currentPage );
-    console.log('reload page', users)
     if ( users.length === 0 ) {
         await this.loadPreviousPage();
         return;

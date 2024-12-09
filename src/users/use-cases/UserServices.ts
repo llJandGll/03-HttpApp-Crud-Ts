@@ -27,7 +27,6 @@ export class UserServices {
 
   async deleteUserById ( id : string | number ) {
     const user = await this.HttpUsers.deleteUserById( id );
-    console.log('delte service', user)
     return user;
   }
 

@@ -19,50 +19,45 @@ export class UserRepository implements UserProvider {
   }
 
 
-  async saveUser( user : UserModel ){
+  async saveUser( user : UserModel ) : Promise<UserModel>{
     
     if( user.id ){
        const updatedUser = await this.updateUser( user );
        return updatedUser;
     }
-
+ 
     const createdUser = await this.createUser( user )
     
     return createdUser;
   }
 
-  async updateUser ( user : UserModel  )  {
+  async updateUser ( user : UserModel  ) : Promise<UserModel> {
     const url = `${import.meta.env.VITE_BASE_URL}/users/${user.id}`;
     const userMapped = userToDatabase( user );
-    const updatedUser = await axios({
+    const { data } = await axios.patch<UserModel>( url , userMapped , {
       headers : {
         "content-type" : "application/json; charset=UTF-8",
       },
-      method : "PATCH",
-      url : url,
-      data : userMapped
     })
 
-    return updatedUser;
+
+    return data;
   }
 
-  async createUser ( user : UserModel  )  {
+  async createUser ( user : UserModel  ) : Promise<UserModel>  {
     const url = `${import.meta.env.VITE_BASE_URL}/users`;
     const userMapped = userToDatabase( user );
-    const createdUser = await axios({
+    const { data } = await axios.post<UserModel>( url , userMapped , {
       headers : {
         "content-type" : "application/json; charset=UTF-8",
       },
-      method : "POST",
-      url : url,
-      data : userMapped
     })
 
-    return createdUser;
+
+    return data;
   }
 
-
-  async getUserById ( id : string | number  ) {
+  async getUserById ( id : string | number  ) : Promise<UserModel> {
     const url = `${import.meta.env.VITE_BASE_URL}/users/${id}`;
     const { data } = await axios.get<UserModel>( url );
     const users = localhostUserModel( data );
@@ -70,19 +65,14 @@ export class UserRepository implements UserProvider {
 
   }
 
-  async deleteUserById ( id : number | string ) {
+  async deleteUserById ( id : number | string ) : Promise<boolean> {
 
     const url = `${ import.meta.env.VITE_BASE_URL }/users/${ id }`;
-    const deleteUser = await axios({
+    await axios.delete(url , {
       headers : {
         "content-type" : "application/json; charset=UTF-8",
       },
-      method : "DELETE",
-      url : url,
-
-    })
-    console.log('delete repository',deleteUser)
-
+    } )
     return true;
 
 }
