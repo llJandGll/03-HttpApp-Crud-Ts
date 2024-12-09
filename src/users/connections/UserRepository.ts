@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { UserProvider } from './UserProvider';
-import { PaginatedResponse } from '../interfaces/pagination';
+import { PaginatedResponse } from '../interfaces';
 import { UserModel } from '../models/UserModel';
 import { localhostUserModel } from '../mappers/localhostUser.mapper';
 import { userToDatabase } from '../mappers/UserToDatabase.mapper';

@@ -1,5 +1,4 @@
 import { UserRepository } from "./users/connections/UserRepository";
-import { UserModel } from "./users/models/UserModel";
 import { UserStore } from "./users/store/UserStore";
 import { UserServices } from "./users/use-cases";
 import { ButtonModal } from "./users/views/add-button-modal/add-button-modal";
