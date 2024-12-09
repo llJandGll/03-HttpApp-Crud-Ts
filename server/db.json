@@ -82,15 +82,6 @@
       "gender": "female"
     },
     {
-      "id": "10",
-      "isActive": false,
-      "balance": 3653.26,
-      "avatar": "http://placehold.it/32x32",
-      "first_name": "Sweeney",
-      "last_name": "Mcintyre",
-      "gender": "male"
-    },
-    {
       "id": "11",
       "isActive": true,
       "balance": 2533.26,
@@ -451,15 +442,6 @@
       "gender": "male"
     },
     {
-      "id": "f3d6",
-      "avatar": "place",
-      "balance": 1500,
-      "first_name": "jesussss",
-      "gender": "hombre",
-      "isActive": true,
-      "last_name": "a"
-    },
-    {
       "id": "9cc9",
       "avatar": "mujer",
       "balance": 1400,
@@ -476,33 +458,6 @@
       "gender": "mujer",
       "last_name": "emilda",
       "isActive": true
-    },
-    {
-      "id": "361f",
-      "avatar": "gaa",
-      "balance": 1400000,
-      "first_name": "eduardo",
-      "gender": "hombre",
-      "isActive": true,
-      "last_name": "castillo"
-    },
-    {
-      "id": "9b75",
-      "avatar": "qwqw",
-      "balance": 11,
-      "first_name": "wqwqwq",
-      "gender": "wqqq",
-      "isActive": true,
-      "last_name": "qwqwqw"
-    },
-    {
-      "id": "d393",
-      "avatar": "aaaa",
-      "balance": 1,
-      "first_name": "aaaa",
-      "gender": "aaa",
-      "isActive": true,
-      "last_name": "aaaaaaaa"
     }
   ]
 }

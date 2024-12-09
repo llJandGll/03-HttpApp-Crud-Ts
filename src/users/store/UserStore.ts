@@ -46,7 +46,7 @@ export class UserStore {
         return;
     } 
     
-    this.state.users = users;
+    return this.state.users = users;
   }
   
    getUsers () {
