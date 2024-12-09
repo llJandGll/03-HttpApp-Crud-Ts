@@ -20,4 +20,9 @@ export class UserServices {
     console.log("user services",userPost)
     return userPost
   }
+
+  async getUserById ( id : string | number ) {
+    const user = await this.HttpUsers.getUserById( id );
+    return user;
+  }
 } 

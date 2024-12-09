@@ -22,19 +22,35 @@ export class UserRepository implements UserProvider {
   async saveUser( user : UserModel ){
     
     if( user.id ){
-      throw 'not implement'
+       const updatedUser = await this.updateUser( user );
+       return updatedUser;
     }
 
-    const updatedUser = await this.createUser( user )
+    const createdUser = await this.createUser( user )
     
-    console.log('user repository',updatedUser);
+    console.log('user repository',createdUser);
+    return createdUser;
+  }
+
+  async updateUser ( user : UserModel  )  {
+    const url = `${import.meta.env.VITE_BASE_URL}/users/${user.id}`;
+    const userMapped = userToDatabase( user );
+    const updatedUser = await axios({
+      headers : {
+        "content-type" : "application/json; charset=UTF-8",
+      },
+      method : "PATCH",
+      url : url,
+      data : userMapped
+    })
+
     return updatedUser;
   }
 
   async createUser ( user : UserModel  )  {
     const url = `${import.meta.env.VITE_BASE_URL}/users`;
     const userMapped = userToDatabase( user );
-    const data = await axios({
+    const createdUser = await axios({
       headers : {
         "content-type" : "application/json; charset=UTF-8",
       },
@@ -43,9 +59,16 @@ export class UserRepository implements UserProvider {
       data : userMapped
     })
 
-    return data;
+    return createdUser;
   }
 
 
+  async getUserById ( id : string | number  ) {
+    const url = `${import.meta.env.VITE_BASE_URL}/users/${id}`;
+    const { data } = await axios.get<UserModel>( url );
+    console.log(data)
+    const users = localhostUserModel( data );
+    return users;
 
+  }
 }

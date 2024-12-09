@@ -4,9 +4,13 @@ import './render-modal.css';
 import { User } from '../../interfaces/user';
 import { UserServices } from '../../use-cases';
 import { UserRepository } from '../../connections/UserRepository';
+import { RenderTable } from '../render-table/render-table';
+import { UserStore } from '../../store/UserStore';
+import { UserModel } from '../../models/UserModel';
 
 let modalInstance: HTMLDivElement | null = null;
 let form : HTMLFormElement;
+let loaderUser : object = {};
 
 
 
@@ -36,16 +40,19 @@ export const RenderModal = (element: HTMLDivElement ) => {
     const user = formData( form );
     const userRepository = new UserRepository()
     const userServices = new UserServices( userRepository );
+    const userStore = new UserStore( userServices );
     const postUsers = await userServices.saveUser( user );
     hideModal( form )
-    console.log("render modal",postUsers)
+    userStore.onUserChanged( user );
+    const users = userStore.relaodPage();
+    RenderTable( element , users );
   })
 
 }
 
 const formData = ( form : HTMLFormElement ) : User => {
   const formData = new FormData( form );
-  const user: Partial<User> = {};
+  const user: Partial<User> = {...loaderUser};
 
   for (const [key, value] of formData) {
 
@@ -81,10 +88,30 @@ const formData = ( form : HTMLFormElement ) : User => {
 }
 
 
-export const showModal = () => {
+export const showModal = async ( id? : string | number) => {
+  loaderUser = {};
   modalInstance?.classList.remove('hide-modal');
- 
+  if ( !id) return;
+
+  const userRepository = new UserRepository()
+  const userServices = new UserServices( userRepository );
+  const user = await userServices.getUserById( id )
+  setFormValues( user );
+  console.log("showModal",user)
 }
+
+
+const setFormValues = ( user : UserModel ) => {
+  form.querySelector<HTMLInputElement>('[name="firstName"]')!.value =  user.firstName;
+  form.querySelector<HTMLInputElement>('[name="lastName"]')!.value =  user.lastName;
+  form.querySelector<HTMLInputElement>('[name="balance"]')!.value =  user.balance.toString();
+  form.querySelector<HTMLInputElement>('[name="avatar"]')!.value =  user.avatar;
+  form.querySelector<HTMLInputElement>('[name="gender"]')!.value =  user.gender;
+  form.querySelector<HTMLInputElement>('[name="isActive"]')!.checked =  user.isActive;
+
+  loaderUser = user;
+}
+
 
 export const hideModal = ( form : HTMLFormElement) => {
   modalInstance?.classList.add('hide-modal');

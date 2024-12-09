@@ -1,5 +1,6 @@
 import './render-table.css';
 import { UserModel } from '../../models/UserModel';
+import { showModal } from '../render-modal/render-modal';
 
 
 let table : HTMLTableElement;
@@ -31,6 +32,8 @@ export const RenderTable = ( element : HTMLDivElement, users : UserModel[] ) : v
   if (!table) {
     table = createTable();
     element.append( table );
+
+    table.addEventListener("click", userSelectListener )
   }
   let tableBodyHtml : string = "";
   users.map( user => {
@@ -43,8 +46,8 @@ export const RenderTable = ( element : HTMLDivElement, users : UserModel[] ) : v
       <td> ${user.isActive} </td>
       <td> ${user.gender} </td>
       <td>
-        <a href= "#/" data-id='${ user.id }' > Select </a>
-        <a href= "#/" data-id='${ user.id }' > Delete </a>
+        <a href= "#/" class="select-user" data-id='${ user.id }' > Select </a>
+        <a href= "#/" class="delete-user" data-id='${ user.id }' > Delete </a>
       </td>
     </tr>
     `;
@@ -52,3 +55,13 @@ export const RenderTable = ( element : HTMLDivElement, users : UserModel[] ) : v
   });
   
 }
+
+
+
+const userSelectListener = ( event : Event ) => {
+  const element = event.target as HTMLElement
+  if ( !element.closest('.select-user') ) return;
+  const id = element.getAttribute("data-id")!;
+
+  showModal( id )
+};

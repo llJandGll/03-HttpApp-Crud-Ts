@@ -40,16 +40,31 @@ export class UserStore {
   }
   
    relaodPage () {
-    throw new Error("not impelement")
+    return this.state.users;
   }
   
    getUsers () {
     return this.state.users;
   }
   
-  // TODO: implementar
-  onUserChanged () {
-    throw new Error("not impelement")
+
+  onUserChanged ( updatedUser : UserModel ) {
+
+    let wasFound : boolean = false;
+    this.state.users = this.state.users.map( user  => {
+      if( user.id === updatedUser.id){
+        wasFound = true;
+        return updatedUser;
+      }
+
+      return user;
+    })
+
+    if( this.state.users.length < 10 && !wasFound){
+      this.state.users.push( updatedUser );
+    }
+
+    return this.state.users;
   }
   
 }

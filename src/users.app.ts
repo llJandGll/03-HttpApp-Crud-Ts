@@ -22,7 +22,7 @@ export const UsersApp =  async ( element : HTMLDivElement) => {
     RenderTable( element, users  );
     RenderButtons( element, userStore );
     ButtonModal( element );
-    RenderModal( element );
+    RenderModal(element );
   }catch( error : any ){
     console.log(error)
     element.innerHTML =  `Error en users.app.ts ${ error.message }`;
