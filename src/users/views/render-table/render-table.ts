@@ -2,6 +2,7 @@ import './render-table.css';
 import { UserModel } from '../../models/UserModel';
 import { showModal } from '../render-modal/render-modal';
 import { UserServices } from '../../use-cases/UserServices';
+import { UserStore } from '../../store/UserStore';
 
 
 let table : HTMLTableElement;
@@ -27,7 +28,7 @@ const createTable = () => {
 }
 
 
-export const RenderTable = ( element : HTMLDivElement, users : UserModel[] , userServices : UserServices ) : void  => {
+export const RenderTable = ( element : HTMLDivElement, users : UserModel[] , userServices : UserServices, userStore? : UserStore) : void  => {
 
 
   if (!table) {
@@ -35,10 +36,10 @@ export const RenderTable = ( element : HTMLDivElement, users : UserModel[] , use
     element.append( table );
 
     table.addEventListener("click", ( event ) => {
-      userSelectListener( event , userServices);
+      userSelectListener( event , userServices!);
     }  )
     table.addEventListener("click", (e) => {
-      // tableDeleteListener(e, element)
+      tableDeleteListener(e, element, userServices, userStore)
     })
   }
   let tableBodyHtml : string = "";
@@ -62,28 +63,25 @@ export const RenderTable = ( element : HTMLDivElement, users : UserModel[] , use
   
 }
 
-// const tableDeleteListener = async(event : Event , element : HTMLDivElement) => {
-//   const data = event.target as HTMLElement
-//   if ( !data.closest('.delete-user') ) return;
+const tableDeleteListener = async(event : Event , element : HTMLDivElement , userServices : UserServices , userStore? : UserStore) => {
+  const data = event.target as HTMLElement
+  if ( !data.closest('.delete-user') ) return;
 
-//   const id = data.getAttribute('data-id')!.toString();
-//   console.log(id)
-//   try {
-//       const userRepository = new UserRepository()
-//       const userServices = new UserServices( userRepository )
-//       const userStore = new UserStore( userServices )
-//       await userServices.deleteUserById( id ); 
-//       await userStore.relaodPage();
-//       const users = userStore.state.users;
-//       document.querySelector<any>('#current-page').innerText = userStore.relaodPage();
-//       RenderTable( element  , users);
+  const id = data.getAttribute('data-id')!.toString();
+  try {
+      await userServices.deleteUserById( id ); 
+      const resp = await userStore!.relaodPage();
+      console.log({resp})
+      const users = await userStore!.getUsers();
+      document.querySelector<any>('#current-page').innerText = userStore!.getCurrentPage();
+      RenderTable( element  , users , userServices);
       
-//   } catch (error) {
-//       console.log(error);
-//       alert('No se pudo eliminar');
-//   }
+  } catch (error) {
+      console.log(error);
+      alert('No se pudo eliminar');
+  }
 
-// }
+}
 
 
 const userSelectListener = ( event : Event , userServices : UserServices ) => {

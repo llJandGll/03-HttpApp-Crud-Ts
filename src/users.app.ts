@@ -18,7 +18,7 @@ export const UsersApp =  async ( element : HTMLDivElement) => {
     const users = await userStore.loadNextPage()
     element.innerHTML = "";
 
-    RenderTable( element, users , userService  );
+    RenderTable( element, users , userService, userStore  );
     RenderButtons( element, userStore );
     ButtonModal( element, userService );
     RenderModal(element, userService, userStore );
